@@ -109,8 +109,7 @@ public class Chart {
    * @return A Series object that you can set properties on
    */
   public Series addSeries(String seriesName, TDoubleArrayList xData, TDoubleArrayList yData) {
-
-    return chartPainter.getAxisPair().addSeries(seriesName, xData, yData, null);
+    return chartPainter.getAxisPair().addSeries(seriesName, xData, yData, null, false);
   }
 
   /**
@@ -122,9 +121,8 @@ public class Chart {
    * @param errorBars the error bar data
    * @return A Series object that you can set properties on
    */
-  public Series addSeries(String seriesName, TDoubleArrayList xData, TDoubleArrayList yData, TDoubleArrayList errorBars) {
-
-    return chartPainter.getAxisPair().addSeries(seriesName, xData, yData, errorBars);
+  public Series addSeries(String seriesName, TDoubleArrayList xData, TDoubleArrayList yData, TDoubleArrayList errorBars, boolean onlyPositiveErrors) {
+    return chartPainter.getAxisPair().addSeries(seriesName, xData, yData, errorBars, onlyPositiveErrors);
   }
 
   /**
@@ -136,8 +134,7 @@ public class Chart {
    * @return A Series object that you can set properties on
    */
   public Series addSeries(String seriesName, double[] xData, double[] yData) {
-
-    return addSeries(seriesName, xData, yData, null);
+    return addSeries(seriesName, xData, yData, null, false);
   }
 
   /**
@@ -149,7 +146,7 @@ public class Chart {
    * @param errorBars the error bar data
    * @return A Series object that you can set properties on
    */
-  public Series addSeries(String seriesName, double[] xData, double[] yData, double[] errorBars) {
+  public Series addSeries(String seriesName, double[] xData, double[] yData, double[] errorBars, boolean onlyPositiveErrors) {
     TDoubleArrayList xDataNumber = new TDoubleArrayList(xData);
     TDoubleArrayList yDataNumber = new TDoubleArrayList(yData);
 
@@ -158,7 +155,7 @@ public class Chart {
       errorBarDataNumber = new TDoubleArrayList(errorBars);
     }
 
-    return chartPainter.getAxisPair().addSeries(seriesName, xDataNumber, yDataNumber, errorBarDataNumber);
+    return chartPainter.getAxisPair().addSeries(seriesName, xDataNumber, yDataNumber, errorBarDataNumber, onlyPositiveErrors);
   }
 
   /**
@@ -171,7 +168,7 @@ public class Chart {
    */
   public Series addSeries(String seriesName, int[] xData, int[] yData) {
 
-    return addSeries(seriesName, xData, yData, null);
+    return addSeries(seriesName, xData, yData, null, false);
   }
 
   /**
@@ -183,7 +180,7 @@ public class Chart {
    * @param errorBars the error bar data
    * @return A Series object that you can set properties on
    */
-  public Series addSeries(String seriesName, int[] xData, int[] yData, int[] errorBars) {
+  public Series addSeries(String seriesName, int[] xData, int[] yData, int[] errorBars, boolean onlyPositiveError) {
 
     TDoubleArrayList xDataNumber = null;
     if (xData != null) {
@@ -204,7 +201,7 @@ public class Chart {
       }
     }
 
-    return chartPainter.getAxisPair().addSeries(seriesName, xDataNumber, yDataNumber, errorBarDataNumber);
+    return chartPainter.getAxisPair().addSeries(seriesName, xDataNumber, yDataNumber, errorBarDataNumber, onlyPositiveError);
   }
 
   /**
@@ -279,7 +276,7 @@ public class Chart {
     return this.addSeries(s, xDataArrayList, yDataArrayList);
   }
 
-  public Series addSeries(String seriesName, Collection<? extends Number> xData, Collection<? extends Number> yData, Collection<? extends Number> errorData) {
+  public Series addSeries(String seriesName, Collection<? extends Number> xData, Collection<? extends Number> yData, Collection<? extends Number> errorData, boolean onlyPositiveError) {
     TDoubleArrayList xDataArrayList = null;
     if (xData != null) {
       xDataArrayList = new TDoubleArrayList(xData.size());
@@ -298,6 +295,14 @@ public class Chart {
       errorDataArrayList.add(number.doubleValue());
     }
 
-    return this.addSeries(seriesName, xDataArrayList, yDataArrayList, errorDataArrayList);
+    return this.addSeries(seriesName, xDataArrayList, yDataArrayList, errorDataArrayList, onlyPositiveError);
+  }
+
+  public Series addSeries(String seriesName, Collection<? extends Number> xData, Collection<? extends Number> yData, Collection<? extends Number> errorData) {
+    return this.addSeries(seriesName,xData,yData,errorData,false);
+  }
+
+  public Series addSeries(String seriesName, int[] xData, int[] yData1, int[] errdata) {
+    return this.addSeries(seriesName, xData,yData1, errdata, false);
   }
 }

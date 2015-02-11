@@ -67,7 +67,7 @@ public class AxisPair implements ChartPart {
    * @param errorBars
    * @return Series
    */
-  public Series addSeries(String seriesName, TDoubleArrayList xData, TDoubleArrayList yData, TDoubleArrayList errorBars) {
+  public Series addSeries(String seriesName, TDoubleArrayList xData, TDoubleArrayList yData, TDoubleArrayList errorBars, boolean onlyPositiveError) {
 
     // Sanity checks
     if (seriesName == null) {
@@ -88,7 +88,7 @@ public class AxisPair implements ChartPart {
       xAxis.setAxisType(Axis.AxisType.Number);
       yAxis.setAxisType(Axis.AxisType.Number);
 
-      series = new Series(seriesName, xData, xAxis.getAxisType(), yData, yAxis.getAxisType(), errorBars, seriesColorMarkerLineStyleCycler.getNextSeriesColorMarkerLineStyle());
+      series = new Series(seriesName, xData, xAxis.getAxisType(), yData, yAxis.getAxisType(), errorBars, seriesColorMarkerLineStyleCycler.getNextSeriesColorMarkerLineStyle(), onlyPositiveError);
     }
     else { // generate xData
       TDoubleArrayList generatedXData = new TDoubleArrayList();
@@ -98,7 +98,7 @@ public class AxisPair implements ChartPart {
       xAxis.setAxisType(Axis.AxisType.Number);
       yAxis.setAxisType(Axis.AxisType.Number);
 
-      series = new Series(seriesName, generatedXData, xAxis.getAxisType(), yData, yAxis.getAxisType(), errorBars, seriesColorMarkerLineStyleCycler.getNextSeriesColorMarkerLineStyle());
+      series = new Series(seriesName, generatedXData, xAxis.getAxisType(), yData, yAxis.getAxisType(), errorBars, seriesColorMarkerLineStyleCycler.getNextSeriesColorMarkerLineStyle(), onlyPositiveError);
 
       series.setXDataIsGenerated(true);
     }

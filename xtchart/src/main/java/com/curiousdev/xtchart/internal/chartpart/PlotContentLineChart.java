@@ -251,11 +251,19 @@ public class PlotContentLineChart extends PlotContent {
           double bottomValue = 0.0;
           if (getChartPainter().getStyleManager().isYAxisLogarithmic()) {
             bottomValue = yOrig - eb;
+
+            if (series.isOnlyPositiveError() && bottomValue < 0) {
+              bottomValue = 0;
+            }
             // System.out.println(bottomValue);
             bottomValue = Math.log10(bottomValue);
           }
           else {
             bottomValue = y - eb;
+
+            if (series.isOnlyPositiveError() && bottomValue < 0) {
+              bottomValue = 0;
+            }
           }
           double bottomEBTransform = bounds.getHeight() - (yTopMargin + (bottomValue - yMin) / (yMax - yMin) * yTickSpace);
           double bottomEBOffset = bounds.getY() + bottomEBTransform;

@@ -37,7 +37,7 @@ public class ErrorBarTest {
     mychart.getStyleManager().setYAxisMin(0);
     mychart.getStyleManager().setYAxisMax(150);
     mychart.getStyleManager().setErrorBarsColor(Color.black);
-    Series series1 = mychart.addSeries("Error bar test data", xData, yData1, errdata);
+    Series series1 = mychart.addSeries("Error bar test data", xData, yData1, errdata, false);
     Series series2 = mychart.addSeries("Y+error", xData, yData2);
     Series series3 = mychart.addSeries("Y-error", xData, yData3);
     series1.setLineStyle(SeriesLineStyle.SOLID);

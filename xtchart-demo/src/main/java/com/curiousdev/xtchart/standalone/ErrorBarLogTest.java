@@ -15,14 +15,9 @@
  */
 package com.curiousdev.xtchart.standalone;
 
-import java.awt.Color;
+import com.curiousdev.xtchart.*;
 
-import com.curiousdev.xtchart.Chart;
-import com.curiousdev.xtchart.Series;
-import com.curiousdev.xtchart.SeriesColor;
-import com.curiousdev.xtchart.SeriesLineStyle;
-import com.curiousdev.xtchart.SeriesMarker;
-import com.curiousdev.xtchart.SwingWrapper;
+import java.awt.*;
 
 /**
  * @author timmolter
@@ -53,7 +48,7 @@ public class ErrorBarLogTest {
 
     mychart.getStyleManager().setErrorBarsColor(Color.black);
 
-    Series series1 = mychart.addSeries("Error bar test data", xData, yData1, errdata);
+    Series series1 = mychart.addSeries("Error bar test data", xData, yData1, errdata, false);
 
     Series series2 = mychart.addSeries("Y+error", xData, yData2);
 

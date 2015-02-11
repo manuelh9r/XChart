@@ -31,6 +31,9 @@ import java.awt.*;
 public class Series {
 
   private boolean XDataIsGenerated;
+  private boolean onlyPositiveError;
+
+
 
   public void setXDataIsGenerated(boolean XDataIsGenerated) {
     this.XDataIsGenerated = XDataIsGenerated;
@@ -38,6 +41,14 @@ public class Series {
 
   public boolean isXDataIsGenerated() {
     return XDataIsGenerated;
+  }
+
+  public void setOnlyPositiveError(boolean onlyPositiveError) {
+    this.onlyPositiveError = onlyPositiveError;
+  }
+
+  public boolean isOnlyPositiveError() {
+    return onlyPositiveError;
   }
 
   public enum SeriesType {
@@ -95,7 +106,8 @@ public class Series {
    * @param seriesColorMarkerLineStyle
    */
   public Series(String name, TDoubleArrayList xData, Axis.AxisType xAxisType, TDoubleArrayList yData, Axis.AxisType yAxisType, TDoubleArrayList errorBars,
-      SeriesColorMarkerLineStyle seriesColorMarkerLineStyle) {
+      SeriesColorMarkerLineStyle seriesColorMarkerLineStyle, boolean onlyPositiveError) {
+    this.onlyPositiveError = onlyPositiveError;
 
     if (name == null || name.length() < 1) {
       throw new IllegalArgumentException("Series name cannot be null or zero-length!!!");
@@ -115,6 +127,7 @@ public class Series {
 
     calculateMinMax();
   }
+
 
   /**
    * Finds the min and max of a dataset
@@ -158,8 +171,14 @@ public class Series {
     while (itr.hasNext()) {
       double bigDecimal = itr.next();
       double eb = ebItr.next();
-      if (bigDecimal - eb < min) {
-        min = bigDecimal - eb;
+      double lowerValue = bigDecimal - eb;
+
+      if (this.onlyPositiveError && lowerValue < 0) {
+        lowerValue = 0;
+      }
+
+      if (lowerValue < min) {
+        min = lowerValue;
       }
       if (bigDecimal + eb > max) {
         max = bigDecimal + eb;

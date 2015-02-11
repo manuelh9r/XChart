@@ -75,7 +75,7 @@ public class CSVImporter {
         chart.addSeries(csvFile.getName().substring(0, csvFile.getName().indexOf(".csv")), getAxisData(xAndYData[0]), getAxisData(xAndYData[1]));
       }
       else {
-        chart.addSeries(csvFile.getName().substring(0, csvFile.getName().indexOf(".csv")), getAxisData(xAndYData[0]), getAxisData(xAndYData[1]), getAxisData(xAndYData[2]));
+        chart.addSeries(csvFile.getName().substring(0, csvFile.getName().indexOf(".csv")), getAxisData(xAndYData[0]), getAxisData(xAndYData[1]), getAxisData(xAndYData[2]), false);
       }
     }
 

@@ -36,7 +36,6 @@ public class ChartPainter {
   private AxisPair axisPair;
   private Plot plot;
   private ChartTitle chartTitle;
-
   /**
    * Constructor
    *
