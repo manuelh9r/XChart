@@ -33,6 +33,16 @@ import com.curiousdev.xtchart.internal.style.GGPlot2Theme;
  */
 public class StyleManager {
 
+  private boolean finalValueChart;
+
+  public boolean isFinalValueChart() {
+    return finalValueChart;
+  }
+
+  public void setFinalValueChart(boolean finalValueChart) {
+    this.finalValueChart = finalValueChart;
+  }
+
   /**
    * Note: For Area Charts, the X-Axis data must be in ascending order.
    */

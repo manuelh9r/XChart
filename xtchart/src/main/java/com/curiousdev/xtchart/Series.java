@@ -29,11 +29,8 @@ import java.awt.*;
  * @author timmolter
  */
 public class Series {
-
   private boolean XDataIsGenerated;
   private boolean onlyPositiveError;
-
-
 
   public void setXDataIsGenerated(boolean XDataIsGenerated) {
     this.XDataIsGenerated = XDataIsGenerated;
@@ -64,7 +61,6 @@ public class Series {
   private Axis.AxisType yAxisType;
 
   private SeriesType seriesType;
-
   private TDoubleArrayList errorBars;
 
   /** the minimum value of axis range */

@@ -29,8 +29,7 @@ import java.util.Map;
  * @author timmolter
  */
 public class Chart {
-
-  private final ChartPainter chartPainter;
+  protected final ChartPainter chartPainter;
 
   /**
    * Constructor

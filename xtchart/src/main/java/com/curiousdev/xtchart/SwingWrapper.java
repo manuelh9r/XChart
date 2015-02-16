@@ -15,12 +15,10 @@
  */
 package com.curiousdev.xtchart;
 
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  * A convenience class used to display a Chart in a barebones Swing application
@@ -92,6 +90,7 @@ public class SwingWrapper {
     // Create and set up the window.
     final JFrame frame = new JFrame(windowTitle);
 
+    frame.setBackground(Color.WHITE);
     // Schedule a job for the event-dispatching thread:
     // creating and showing this application's GUI.
     javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -101,6 +100,7 @@ public class SwingWrapper {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel chartPanel = new XChartPanel(charts.get(0));
+        chartPanel.setBackground(Color.WHITE);
         frame.add(chartPanel);
 
         // Display the window.

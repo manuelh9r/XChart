@@ -15,9 +15,6 @@
  */
 package com.curiousdev.xtchart.demo.charts.line;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.curiousdev.xtchart.Chart;
 import com.curiousdev.xtchart.ChartBuilder;
 import com.curiousdev.xtchart.StyleManager;
@@ -35,34 +32,32 @@ import com.curiousdev.xtchart.demo.charts.ExampleChart;
  */
 public class LineChart01 implements ExampleChart {
 
-  public static void main(String[] args) {
-
+  public static void main(String[] args) throws InterruptedException {
     ExampleChart exampleChart = new LineChart01();
     Chart chart = exampleChart.getChart();
     new SwingWrapper(chart).displayChart();
+
+    Thread.sleep(10000);
   }
 
   @Override
   public Chart getChart() {
 
     // generates Log data
-    List<Integer> xData = new ArrayList<Integer>();
-    List<Double> yData = new ArrayList<Double>();
-    for (int i = -3; i <= 3; i++) {
-      xData.add(i);
-      yData.add(Math.pow(10, i));
-    }
 
     // Create Chart
-    Chart chart = new ChartBuilder().width(800).height(600).build();
+    Chart chart = new ChartBuilder().width(800).height(600).theme(StyleManager.ChartTheme.Matlab).build();
 
     // Customize Chart
     chart.getStyleManager().setChartTitleVisible(false);
     chart.getStyleManager().setLegendPosition(StyleManager.LegendPosition.InsideNW);
-    chart.getStyleManager().setYAxisLogarithmic(true);
+    chart.getStyleManager().setYAxisLogarithmic(false);
+    chart.getStyleManager().setYAxisTicksVisible(false);
 
     // Series
-    chart.addSeries("10^x", xData, yData);
+    chart.addSeries("10^x1", new double[] {30.0}, new double[] {7.0});
+    chart.addSeries("10^x2", new double[] {30.0}, new double[] {10.0});
+    chart.addSeries("10^x3", new double[] {30.0}, new double[] {20.0});
 
     return chart;
   }

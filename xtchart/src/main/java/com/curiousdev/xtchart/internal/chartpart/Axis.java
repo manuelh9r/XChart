@@ -29,6 +29,18 @@ import com.curiousdev.xtchart.StyleManager.LegendPosition;
  */
 public class Axis implements ChartPart {
 
+  private boolean forcedMinMax;
+
+  public void setMax(double max) {
+    this.forcedMinMax = true;
+    this.max = max;
+  }
+
+  public void setMin(double min) {
+    this.forcedMinMax = true;
+    this.min = min;
+  }
+
   public enum AxisType {
 
     Number, Date, String;
@@ -87,9 +99,10 @@ public class Axis implements ChartPart {
    * Reset the default min and max values in preparation for calculating the actual min and max
    */
   void resetMinMax() {
-
-    min = Double.MAX_VALUE;
-    max = -Double.MAX_VALUE;
+    if (!forcedMinMax) {
+      min = Double.MAX_VALUE;
+      max = -Double.MAX_VALUE;
+    }
   }
 
   /**
@@ -97,16 +110,16 @@ public class Axis implements ChartPart {
    * @param max
    */
   protected void addMinMax(double min, double max) {
-
-    // System.out.println(min);
-    // System.out.println(max);
-    if (this.min == Double.NaN || min < this.min) {
-      this.min = min;
+    if (!forcedMinMax) {
+      // System.out.println(min);
+      // System.out.println(max);
+      if (this.min == Double.NaN || min < this.min) {
+        this.min = min;
+      }
+      if (this.max == Double.NaN || max > this.max) {
+        this.max = max;
+      }
     }
-    if (this.max == Double.NaN || max > this.max) {
-      this.max = max;
-    }
-
     // System.out.println(this.min);
     // System.out.println(this.max);
   }

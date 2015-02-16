@@ -109,7 +109,7 @@ public class ChartPainter {
     chartTitle.paint(g);
     chartLegend.paint(g);
 
-    g.dispose();
+    //g.dispose();
   }
 
   /**

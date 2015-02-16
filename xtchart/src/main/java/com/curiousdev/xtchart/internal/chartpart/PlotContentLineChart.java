@@ -74,8 +74,10 @@ public class PlotContentLineChart extends PlotContent {
     double yTickSpace = styleManager.getAxisTickSpacePercentage() * bounds.getHeight();
     double yTopMargin = Utils.getTickStartOffset((int) bounds.getHeight(), yTickSpace);
 
-    for (Series series : getChartPainter().getAxisPair().getSeriesMap().values()) {
+    int counterSeries = 1;
+    int maxSeries = getChartPainter().getAxisPair().getSeriesMap().values().size() + 1;
 
+    for (Series series : getChartPainter().getAxisPair().getSeriesMap().values()) {
       // data points
       TDoubleArrayList xData = series.getXData();
       // System.out.println(xData);
@@ -176,7 +178,15 @@ public class PlotContentLineChart extends PlotContent {
           yTransform = bounds.getHeight() / 2.0;
         }
 
-        double xOffset = bounds.getX() + xTransform;
+        double xOffset;
+        if (getChartPainter().getStyleManager().isFinalValueChart()) {
+          xOffset = ((bounds.getX() + xTransform) - xTickSpace / 2) + (counterSeries * (xTickSpace / maxSeries));
+          counterSeries++;
+        } else {
+          xOffset = ((bounds.getX() + xTransform));
+        }
+
+
         double yOffset = bounds.getY() + yTransform;
         // System.out.println(yOffset);
         // System.out.println(yTransform);

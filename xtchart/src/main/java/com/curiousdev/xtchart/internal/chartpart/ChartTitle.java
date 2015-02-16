@@ -68,7 +68,7 @@ public class ChartTitle implements ChartPart {
    *
    * @return
    */
-  protected int getSizeHint() {
+  public int getSizeHint() {
 
     if (chartPainter.getStyleManager().isChartTitleVisible()) {
 
