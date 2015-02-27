@@ -15,12 +15,12 @@
  */
 package com.curiousdev.xtchart.internal.chartpart;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.curiousdev.xtchart.StyleManager;
 import com.curiousdev.xtchart.StyleManager.ChartType;
 import com.curiousdev.xtchart.internal.Utils;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author timmolter
@@ -159,7 +159,7 @@ public abstract class AxisTickCalculator {
       }
     }
     else {
-      while (significand >= 10 || significand == Double.NEGATIVE_INFINITY) {
+      while (significand >= 10 || significand == Double.NEGATIVE_INFINITY)  {
         significand /= 10.0;
         exponent++;
       }

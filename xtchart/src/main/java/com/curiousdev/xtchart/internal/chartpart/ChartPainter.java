@@ -61,7 +61,6 @@ public class ChartPainter {
    * @param height
    */
   public void paint(Graphics2D g, int width, int height) {
-
     this.width = width;
     this.height = height;
     paint(g);

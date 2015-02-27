@@ -16,6 +16,7 @@
 package com.curiousdev.xtchart;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * An XChart Chart
@@ -69,24 +70,60 @@ public class CompoundChart extends Chart {
    */
   public void paint(Graphics2D g, int width, int height) {
     // Ignoring external paint
+      g.clearRect(0,0,width,height);
 
-    paint(g);
+      double multiplyWidth = (double)width / (double)getWidth();
+      double multiplyHeight = (double)height / (double)getHeight();
+
+      chart1.chartPainter.getAxisPair().getYAxis().resetForced();
+      chart1.chartPainter.getAxisPair().getXAxis().resetForced();
+
+      int previousWidth1 = chart1.getWidth();
+      int previousWidth2 = chart2.getWidth();
+      int previousHeight1 = chart1.getHeight();
+      int previousHeight2 = chart2.getHeight();
+      chart1.paint(g, (int)(chart1.getWidth()*multiplyWidth), (int)(chart1.getHeight()*multiplyHeight));
+      chart2.paint(g, (int)(chart2.getWidth()*multiplyWidth), (int)(chart2.getHeight()*multiplyHeight));
+
+      alignMinMax();
+
+      chart1.paint(g, (int)(chart1.getWidth()), (int)(chart1.getHeight()));
+      g.translate((int)(chart1.getWidth())+1, chart1.chartPainter.getChartTitle().getSizeHint() - 1);
+      chart2.paint(g, (int)(chart2.getWidth()), (int)(chart2.getHeight()) - chart1.chartPainter.getChartTitle().getSizeHint() - ((int)chart1.chartPainter.getAxisPair().getXAxis().getAxisTitle().getBounds().getHeight()));
+
+      // Reset size
+      BufferedImage image = new BufferedImage(1,1,BufferedImage.TYPE_INT_ARGB);
+      Graphics2D nullG = image.createGraphics();
+      chart1.paint(nullG, previousWidth1, previousHeight1);
+      chart2.paint(nullG, previousWidth2, previousHeight2);
   }
 
   /**
    * @param g
    */
   public void paint(Graphics2D g) {
-    g.setBackground(chart1.getStyleManager().getLegendBackgroundColor());
-    g.fillRect(0,0,getWidth(), getHeight());
+    //g.setBackground(chart1.getStyleManager().getLegendBackgroundColor());
+    //g.setColor(chart1.getStyleManager().getLegendBackgroundColor());
+   // g.fillRect(0,0,getWidth(), getHeight());
+    g.clearRect(0,0,getWidth(),getHeight());
+
+    chart1.chartPainter.getAxisPair().getYAxis().resetForced();
+    chart1.chartPainter.getAxisPair().getXAxis().resetForced();
 
     chart1.paint(g);
     chart2.paint(g);
 
     alignMinMax();
 
-    chart1.paint(g);
-    g.translate(chart1.getWidth()+1, chart1.chartPainter.getChartTitle().getSizeHint() - 1);
-    chart2.paint(g, chart2.getWidth(), chart2.getHeight() - chart1.chartPainter.getChartTitle().getSizeHint() - (int)chart1.chartPainter.getAxisPair().getXAxis().getAxisTitle().getBounds().getHeight() + 1);
+      chart1.paint(g, (int)(chart1.getWidth()), (int)(chart1.getHeight()));
+      g.translate((int)(chart1.getWidth())+1, chart1.chartPainter.getChartTitle().getSizeHint() - 1);
+
+      int previousHeight = chart2.getHeight();
+      chart2.paint(g, (int)(chart2.getWidth()), (int)(chart2.getHeight()) - chart1.chartPainter.getChartTitle().getSizeHint() - ((int)chart1.chartPainter.getAxisPair().getXAxis().getAxisTitle().getBounds().getHeight()));
+
+      // Reset height
+      BufferedImage image = new BufferedImage(1,1,BufferedImage.TYPE_INT_ARGB);
+      Graphics2D nullG = image.createGraphics();
+      chart2.paint(nullG, chart2.getWidth(), previousHeight);
   }
 }

@@ -15,13 +15,13 @@
  */
 package com.curiousdev.xtchart;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import de.erichseifert.vectorgraphics2d.EPSGraphics2D;
 import de.erichseifert.vectorgraphics2d.PDFGraphics2D;
 import de.erichseifert.vectorgraphics2d.SVGGraphics2D;
 import de.erichseifert.vectorgraphics2d.VectorGraphics2D;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * A helper class with static methods for saving Charts as bitmaps
@@ -71,5 +71,41 @@ public final class VectorGraphicsEncoder {
       file.close();
     }
   }
+
+    public static void saveVectorGraphicLarge(Chart chart, String fileName, VectorGraphicsFormat vectorGraphicsFormat, double multiply) throws IOException {
+        VectorGraphics2D g = null;
+
+        int oldWidth = chart.getWidth();
+        int width = (int)(oldWidth * multiply);
+        int oldHeight = chart.getHeight();
+        int height = (int)(oldHeight * multiply);
+        switch (vectorGraphicsFormat) {
+            case EPS:
+                g = new EPSGraphics2D(0.0, 0.0, width, height);
+                break;
+            case PDF:
+                g = new PDFGraphics2D(0.0, 0.0, width, height);
+                break;
+            case SVG:
+                g = new SVGGraphics2D(0.0, 0.0, width, height);
+                break;
+
+            default:
+                break;
+        }
+
+        chart.paint(g, width, height);
+
+        // Write the vector graphic output to a file
+        FileOutputStream file = new FileOutputStream(fileName + "." + vectorGraphicsFormat.toString().toLowerCase());
+
+        try {
+            file.write(g.getBytes());
+        } finally {
+            file.close();
+        }
+
+        chart.paint(g, oldWidth, oldHeight);
+    }
 
 }

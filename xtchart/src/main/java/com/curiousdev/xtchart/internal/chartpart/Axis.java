@@ -41,7 +41,11 @@ public class Axis implements ChartPart {
     this.min = min;
   }
 
-  public enum AxisType {
+    public void resetForced() {
+        this.forcedMinMax = false;
+    }
+
+    public enum AxisType {
 
     Number, Date, String;
   }

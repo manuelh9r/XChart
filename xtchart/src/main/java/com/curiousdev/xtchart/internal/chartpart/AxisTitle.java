@@ -73,13 +73,17 @@ public class AxisTitle implements ChartPart {
         int xOffset = (int) (axis.getPaintZone().getX() + nonRotatedRectangle.getHeight());
         int yOffset = (int) ((axis.getPaintZone().getHeight() + nonRotatedRectangle.getWidth()) / 2.0 + axis.getPaintZone().getY());
         AffineTransform orig = g.getTransform();
-        AffineTransform at = new AffineTransform();
+        /*AffineTransform at = new AffineTransform();
         at.rotate(Math.PI / -2.0, xOffset, yOffset);
-        g.transform(at);
-        g.drawString(text, xOffset, yOffset);
-        g.setTransform(orig);
+        g.transform(at);*/
 
-        // ///////////////////////////////////////////////
+          g.rotate(Math.PI / -2.0, xOffset, yOffset);
+
+          g.drawString(text, xOffset, yOffset);
+
+          g.setTransform(orig);
+
+          // ///////////////////////////////////////////////
         // System.out.println(nonRotatedRectangle.getHeight());
 
         // bounds
